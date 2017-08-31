@@ -42,6 +42,7 @@ class App extends React.Component {
 		});
 		
 		this.client.on('message', (topic, message) => {
+			// gelv/status - status of all items
 			if (/^gelv[/]status$/.test(topic)) {
 				let items = JSON.parse(message.toString());
 				localStorage.setItem('items', message);
@@ -50,17 +51,17 @@ class App extends React.Component {
 					firstLoad: false
 				});
 			}
+			// gelv/status/20 - status of item 20
 			else if (/^gelv[/]status[/][0-9]+$/.test(topic)) {
 				let item = JSON.parse(message.toString());
 				let items = this.state.items;
 				
 				// Find the correct index of item.id in the items array
-				let index = items.findIndex(search_item => {
-					return item && search_item.id === item.id;
-				});
-				if (index === -1) { // doesn't exist yet
+				let index = items.findIndex(search_item => item && search_item.id === item.id);
+				if (index === -1) { // doesn't exist yet, so add it
 					items.push(item);
-				} else {
+				}
+				else { // update it
 					items[index] = item;
 				}
 				

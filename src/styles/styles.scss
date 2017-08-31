@@ -79,11 +79,12 @@ body {
 				//background: #82AC8C;
 				background: #44AC52;
 			}
-			border-left: none;
+			border-left: 1px solid black;
 		}
 		&__off {
 			background: black;
 			color: white;
+			border-right: 1px solid black;
 			&:active {
 				//background: #E8847B;
 				background: #E81D20;
